@@ -1,10 +1,10 @@
 #This a GA exmaple searching for the best recipe for making cookies.
-#It is consisted of sugar and flour as two major raw material and ingore
-#anything else.The quantity of sugar and flour range from 1 to 9 respectively
+#It is consisted of sugar and flour as two major raw material.
+#The quantity of sugar and flour range from 1 to 9 respectively
 #and the quality of the cookie is measured from 0 to 9,9 represents best
 #In this algorithm,we choose a recipe as chromosome and make sugar and
-#flour as two genes as this chromosome.The initial population size is 1 and so
-#crossover is cancelled here and muation is the main method for evolution.
+#flour as two genes for this chromosome.The initial population size is 1 and so
+#crossover has been cancelled here and mutation is the main method for evolution.
 #Each time we choose one cookie randomly in the population to mutate.
 
 import random
@@ -25,6 +25,7 @@ class Cookie:
         self.flour = c.flour
 
 #mutation function
+#the mutate rate is +/- 1 for sugar or flour
 def mutate(c):
     cookie = Cookie(0,0)
     cookie.copy(c)
@@ -98,7 +99,7 @@ def mutate(c):
             cookie.flour -= 1
     return cookie
 
-#return quality value of a cookie
+#return quality value of a cookie 
 def quality(cookie):
     quality_table = [[1,2,3,4,5,4,3,2,1],
                      [2,0,0,0,0,0,0,0,2],
