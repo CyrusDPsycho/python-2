@@ -51,8 +51,12 @@ def cyk_offline_parser(pos,grammar):
 	return chart
 
 #return the correct ways of parsing
-def how_many_ways_of_parsing(chart):
-	return len(chart[len(chart)-1][1])
+def how_many_ways_of_parsing(chart,finish_symbol):
+	count  = 0
+	for ele in chart[len(chart)-1][1]:
+		if finish_symbol == ele:
+			count += 1
+	return count
 
 def write_to_csv(chart):
 	with open('chart.csv','w') as f:
@@ -64,7 +68,6 @@ def write_to_csv(chart):
 if __name__ == '__main__':
 
 	#test case 1
-	'''
 	grammar = {
 		('NP','VP') : 'S',
 		('kon','NP','VP') : 'S',
@@ -83,9 +86,9 @@ if __name__ == '__main__':
 	}
 
 	pos = ['kon','pp','v','det','n','det','n','v','adj','kon','det','n','v','adj','n']
-	'''
 
 	#test case 2
+	'''
 	grammar = {
 		('NP','VP') : 'S',
 		('IN','NP','VP') : 'S',
@@ -104,8 +107,9 @@ if __name__ == '__main__':
 	}
 
 	pos = ['CD','NN','VBZ','IN','DT','NN','IN','NE','VBD','PRP','IN','DT','NE','NE','IN','PRP','VBD','JJ']
+	'''
 	chart = cyk_offline_parser(pos,grammar)
 
 	write_to_csv(chart)
 
-	print how_many_ways_of_parsing(chart)
+	print how_many_ways_of_parsing(chart,'S')
