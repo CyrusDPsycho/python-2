@@ -12,5 +12,5 @@ NLP:python programs in Natural Language processing filed.
 	
 	-- bigram-probability-caculation.py:Read text file and calculate bigram probabilities in order
 	
-	-- cyk-offline-parser:Read in pos-tag sequence of sentence and use Cocke-Kasami-Younger(CYK) Parser to do bottom-up parsing,offline means starting to parsing until all 	
+	-- cyk-offline-parser.py:Read in pos-tag sequence of sentence and use Cocke-Kasami-Younger(CYK) Parser to do bottom-up parsing,offline means starting to parsing until all 	
 	   words of a sentence have been readed in.
