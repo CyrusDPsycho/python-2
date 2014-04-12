@@ -4,7 +4,8 @@ python
 Some python programs
 
 AI:python programs in Artificial Intelligence field.
-	-- cookie.py:A simple GA example searching best recipe for makeing cookies.
+	
+    -- cookie.py:A simple GA example searching best recipe for makeing cookies.
 
 
 NLP:python programs in Natural Language processing filed.
