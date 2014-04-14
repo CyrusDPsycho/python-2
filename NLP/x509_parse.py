@@ -55,211 +55,209 @@ def parse_pem(pemstr):
 	f.close()
 	x509cert = x509_parse(cer)
 	tbs = x509cert.tbsCertificate
-    if tbs != None:
-        #version
-        #attributes_writer.write(str(tbs.version +1) + ',')
-	    dict["version"] = tbs.version + 1
-        #Serial no
-        #attributes_writer.write(str(tbs.serial_number) + ',')
-        dict["Serial No"] = hex(tbs.serial_number)    
-   	 	#Signatue algorithm
-        #attributes_writer.write(x509cert.signature_algorithm + ',')
-        dict['Sig Alg'] = x509cert.signature_algorithm    
-	    #Issuer
-	    temp = tbs.issuer.get_attributes()
-        temp_dict = {}
+	if tbs != None:
+		#version
+		#attributes_writer.write(str(tbs.version +1) + ',')
+		dict["version"] = tbs.version + 1
+		#Serial no
+		#attributes_writer.write(str(tbs.serial_number) + ',')
+		dict["Serial No"] = hex(tbs.serial_number)    
+		#Signatue algorithm
+		#attributes_writer.write(x509cert.signature_algorithm + ',')
+		dict['Sig Alg'] = x509cert.signature_algorithm    
+		#Issuer
+		temp = tbs.issuer.get_attributes()
+		temp_dict = {}
 
-	    if 'CN' in temp.keys():
-	        value = temp.get('CN')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['CN'] = value
-
-	    if 'C' in temp.keys():
-            	value = temp.get('C')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['C'] = value
-
-	    if 'L' in temp.keys():
-			value = temp.get('L')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['L'] = value
-		
-	    if 'ST' in temp.keys():
-			value = temp.get('ST')[0]
-	    else:
-	        value = ''
-	    
-	    temp_dict['ST'] = value
-
-	    if 'O' in temp.keys():
-			value = temp.get('O')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['O'] = value
-	    	
-	    if 'OU' in temp.keys():
-			value = temp.get('OU')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['OU'] = value
-	    
-	    dict['issuer'] = temp_dict
-            		
-	    #Not Before Not After
-
-	    #attributes_writer.write(str(tbs.validity.get_valid_from_as_datetime()) +',')
-	    #attributes_writer.write(str(tbs.validity.get_valid_to_as_datetime()) + ',')
-            #print tbs.validity.get_valid_from_as_datetime()
-	    dict['Not Before'] = tbs.validity.get_valid_from_as_datetime()
-	    dict['Not After'] = tbs.validity.get_valid_to_as_datetime()
-	    
-	    #Subject
-	    temp = tbs.subject.get_attributes()
-	    temp_dict = {}
-	    if 'CN' in temp.keys():
+		if 'CN' in temp.keys():
 			value = temp.get('CN')[0]
-	    else:
+		else:
 			value = ''
-	    
-        temp_dict['CN'] = value	    
-
-	    if 'C' in temp.keys():
-            value = temp.get('C')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['C'] = value
-	
-	    if 'L' in temp.keys():
-	        value = temp.get('L')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['L'] = value
-	
-	    if 'ST' in temp.keys():
-			value = temp.get('ST')[0]
-	    else:
-			value = ''
-	    
-	    temp_dict['ST'] = value
 		
-	    if 'O' in temp.keys():
+		temp_dict['CN'] = value
+		
+		if 'C' in temp.keys():
+			value = temp.get('C')[0]
+		else:
+			value = ''
+		
+		temp_dict['C'] = value
+		
+		if 'L' in temp.keys():
+			value = temp.get('L')[0]
+		else:
+			value = ''
+		
+		temp_dict['L'] = value
+		
+		if 'ST' in temp.keys():
+			value = temp.get('ST')[0]
+		else:
+			value = ''
+		
+		temp_dict['ST'] = value
+		
+		if 'O' in temp.keys():
 			value = temp.get('O')[0]
-	    else:
+		else:
 			value = ''
-	    
-	    temp_dict['O'] = value	
-	    if 'OU' in temp.keys():
+		
+		temp_dict['O'] = value
+		    
+		if 'OU' in temp.keys():
 			value = temp.get('OU')[0]
-	    else:
+		else:
 			value = ''
-	    
-	    temp_dict['OU'] = value	
- 	    dict['Subject'] = temp_dict
-	    #public key algorithm && type
-	    #attributes_writer.write(str(tbs.pub_key_info.algName) + ',')
-	    alg = ''
-	    temp_dict = {}
-	    algParams = tbs.pub_key_info.key
-	    if tbs.pub_key_info.algType == PublicKeyInfo.RSA:
-	        #attributes_writer.write('RSA' + ',')
+		
+		temp_dict['OU'] = value
+		
+		dict['issuer'] = temp_dict
+            		
+		#Not Before Not After
+		
+		#attributes_writer.write(str(tbs.validity.get_valid_from_as_datetime()) +',')
+		#attributes_writer.write(str(tbs.validity.get_valid_to_as_datetime()) + ',')
+		#print tbs.validity.get_valid_from_as_datetime()
+		dict['Not Before'] = tbs.validity.get_valid_from_as_datetime()
+		dict['Not After'] = tbs.validity.get_valid_to_as_datetime()
+		
+		#Subject
+		temp = tbs.subject.get_attributes()
+		temp_dict = {}
+		if 'CN' in temp.keys():
+			value = temp.get('CN')[0]
+		else:
+			value = ''
+		
+		temp_dict['CN'] = value	    
+		
+		if 'C' in temp.keys():
+		value = temp.get('C')[0]
+		else:
+			value = ''
+		
+		temp_dict['C'] = value
+		
+		if 'L' in temp.keys():
+		value = temp.get('L')[0]
+		else:
+			value = ''
+		
+		temp_dict['L'] = value
+		
+		if 'ST' in temp.keys():
+			value = temp.get('ST')[0]
+		else:
+			value = ''
+		
+		temp_dict['ST'] = value
+		
+		if 'O' in temp.keys():
+			value = temp.get('O')[0]
+		else:
+			value = ''
+		
+		temp_dict['O'] = value	
+		if 'OU' in temp.keys():
+			value = temp.get('OU')[0]
+		else:
+			value = ''
+		
+		temp_dict['OU'] = value	
+		dict['Subject'] = temp_dict
+		#public key algorithm && type
+		#attributes_writer.write(str(tbs.pub_key_info.algName) + ',')
+		alg = ''
+		temp_dict = {}
+		algParams = tbs.pub_key_info.key
+		if tbs.pub_key_info.algType == PublicKeyInfo.RSA:
+			#attributes_writer.write('RSA' + ',')
 			temp_dict['pKeyType'] = 'RSA'
 			temp_dict['Modulus'] = hexlify(algParams["mod"])
 			temp_dict['Exponent'] = hex(algParams["exp"])
-	    elif tbs.pub_key_info.algType == PublicKeyInfo.DSA:
+		elif tbs.pub_key_info.algType == PublicKeyInfo.DSA:
 			#attributes_writer.write('DES' + ',')
-		   	temp_dict['pKeyType'] = 'DES'
+			temp_dict['pKeyType'] = 'DES'
 			temp_dict['Pub'] = hexlify(algParams['pub'])
 			temp_dict['P'] = hexlify(algParams['p'])
-	 		temp_dict['Q'] = hexlify(algParams['q'])
+			temp_dict['Q'] = hexlify(algParams['q'])
 			temp_dict['G'] = hexlify(algParams['g'])
-	    dict['pKeyAlg'] = temp_dict
-	    
-	    temp_dict = {}
-	    #Extensions
-	    if tbs.authInfoAccessExt:
-	        #attributes_writer.write(str(tbs.authInfoAccessExt.is_critical))
+		
+		dict['pKeyAlg'] = temp_dict
+		temp_dict = {}
+		#Extensions
+		if tbs.authInfoAccessExt:
+			#attributes_writer.write(str(tbs.authInfoAccessExt.is_critical))
 			son_dict = {}
 			son_dict['is_critical'] = tbs.authInfoAccessExt.is_critical
 			temp = '['
 			for aia in tbs.authInfoAccessExt.value:
-			    temp +='{' +  aia.access_location + ',' + aia.access_method + ',' + str(aia.id) + '},'
+				temp +='{' +  aia.access_location + ',' + aia.access_method + ',' + str(aia.id) + '},'
 			temp += ']'    
 			son_dict['value'] = temp
 			temp_dict['authInfoAccessExt'] = son_dict	
-		#attributes_writer.write(loc + ',' + acm + ',' + id + ',')
+			#attributes_writer.write(loc + ',' + acm + ',' + id + ',')
 	
 
-	    if tbs.authKeyIdExt:
-	        aki = tbs.authKeyIdExt.value
+		if tbs.authKeyIdExt:
+			aki = tbs.authKeyIdExt.value
 			kd = ''
-	  		acs = ''
+			acs = ''
 			aci = ''
 			if hasattr(aki, "key_id"):
-			    kd = str(hexlify(aki.key_id))
+				kd = str(hexlify(aki.key_id))
 			if hasattr(aki, "auth_cert_sn"):
-			    acs = aki.auth_cert_sn
+				acs = aki.auth_cert_sn
 			if hasattr(aki, "auth_cert_issuer"):
-			    aci = aki.auth_cert_issuer
+				aci = aki.auth_cert_issuer
 			son_dict = {}
 			son_dict['is_critical'] = tbs.authKeyIdExt.is_critical
 			son_dict['value'] = '{' + kd + ',' + acs +',' +aci + '}'
 			temp_dict['authKeyIdExt'] = son_dict
 
-	    if tbs.basicConstraintsExt:
+		if tbs.basicConstraintsExt:
 			bc = tbs.basicConstraintsExt.value
 			son_dict = {}
 			son_dict['is_critical'] = tbs.basicConstraintsExt.is_critical
 			son_dict['value'] = '{' + str(bc.ca) + ',' + str(bc.max_path_len) + '}'
 			temp_dict['basicConstraintsExt'] = son_dict
  		
-		
-	    if tbs.certPoliciesExt:
-	        son_dict = {}
+		if tbs.certPoliciesExt:
+			son_dict = {}
 			policies = tbs.certPoliciesExt.value
 			son_dict['is_critical'] = tbs.certPoliciesExt.is_critical
 			temp = ''
 			for policy in policies:
-			    temp += '['+str(policy.id)
-			    for qualifier in policy.qualifiers:
-			        temp += '{' + str(qualifier.id) + ',' +str(qualifier.qualifier) + '}'
-		    	temp += '],'
+				temp += '['+str(policy.id)
+				for qualifier in policy.qualifiers:
+					temp += '{' + str(qualifier.id) + ',' +str(qualifier.qualifier) + '}'
+				temp += '],'
 			son_dict['value'] = temp
 			temp_dict['certPoliciesExt'] = son_dict
 
-
-	    if tbs.crlDistPointsExt:
-	        son_dict = {}
+		if tbs.crlDistPointsExt:
+			son_dict = {}
 			son_dict['is_critical'] = tbs.crlDistPointsExt.is_critical
 			crls = tbs.crlDistPointsExt.value
 			temp = '['
 			for crl in crls:
-			    if crl.dist_point:
-			        temp += '{' + crl.dist_point + ','
-			    else:
+				if crl.dist_point:
+					temp += '{' + crl.dist_point + ','
+				else:
 					temp += '{' + ','
-			    if crl.issuer:
-			        temp += crl.issuer + ','
-			    else:
+				if crl.issuer:
+					temp += crl.issuer + ','
+				else:
 					temp += ','
-			    if crl.reasons:
+				if crl.reasons:
 					temp += crl.reasons + '},'
-			    else:
+				else:
 					temp += '},'
 			temp += ']'
 			son_dict['value'] = temp
 			temp_dict['crlDistPointsExt'] = son_dict
 
-	    if tbs.extKeyUsageExt:
+		if tbs.extKeyUsageExt:
 			eku = tbs.extKeyUsageExt.value
 			set_flags = [flag for flag in ExtendedKeyUsageExt._keyPurposeAttrs.values() if getattr(eku, flag)]
 			son_dict = {}
@@ -268,14 +266,14 @@ def parse_pem(pemstr):
 			temp_dict['extKeyUsageExt'] = son_dict
 
 	
-	    if tbs.keyUsageExt:
-		    #print "\tKey Usage: is_critical:", tbs.keyUsageExt.is_critical
+		if tbs.keyUsageExt:
+			#print "\tKey Usage: is_critical:", tbs.keyUsageExt.is_critical
 			ku = tbs.keyUsageExt.value
 			flags = ["digitalSignature","nonRepudiation", "keyEncipherment",
 				 "dataEncipherment", "keyAgreement", "keyCertSign",
 				 "cRLSign", "encipherOnly", "decipherOnly",
 				]
-
+			
 			set_flags = [flag for flag in flags if getattr(ku, flag)]
 			    #print "\t\t", ",".join(set_flags)
 			son_dict = {}
@@ -283,18 +281,18 @@ def parse_pem(pemstr):
 			son_dict['value'] = set_flags
 			temp_dict['KeyUsageExt'] = son_dict
 		
-	    if tbs.policyConstraintsExt:
-		    #print "\tPolicy Constraints: is_critical:", tbs.policyConstraintsExt.is_critical
-	    	pc = tbs.policyConstraintsExt.value
-		   # print "\t\trequire explicit policy: ", pc.requireExplicitPolicy
- 		   # print "\t\tinhibit policy mapping: ", pc.inhibitPolicyMapping
+		if tbs.policyConstraintsExt:
+			#print "\tPolicy Constraints: is_critical:", tbs.policyConstraintsExt.is_critical
+			pc = tbs.policyConstraintsExt.value
+			# print "\t\trequire explicit policy: ", pc.requireExplicitPolicy
+			# print "\t\tinhibit policy mapping: ", pc.inhibitPolicyMapping
 			son_dict = {}
 			son_dict['is_critical'] = tbs.policyConstraintsExt.is_critical
 			son_dict['value'] = '{' + pc.requireExplicitPolicy + ',' + pc.inhibitPolicyMapping + '}'
 			temp_dict['policyConstraintsExt'] = son_dict
-
-	    if tbs.subjAltNameExt:
-		   # print "\tSubject Alternative Name: is_critical:", tbs.subjAltNameExt.is_critical
+		
+		if tbs.subjAltNameExt:
+			# print "\tSubject Alternative Name: is_critical:", tbs.subjAltNameExt.is_critical
 			san = tbs.subjAltNameExt.value
 			   # print "\t\tDNS names:", ",".join(san.names) #only DNS names supported now
 			son_dict = {}
@@ -303,8 +301,8 @@ def parse_pem(pemstr):
 			temp_dict['subjAltNameExt'] = son_dict
 
 				
-	    if tbs.subjKeyIdExt:
-		    #print "\tSubject Key Id: is_critical:", tbs.subjKeyIdExt.is_critical
+		if tbs.subjKeyIdExt:
+			#print "\tSubject Key Id: is_critical:", tbs.subjKeyIdExt.is_critical
 			ski = tbs.subjKeyIdExt.value
 			   # print "\t\tkey id", hexlify(ski.subject_key_id)
 			son_dict = {}
@@ -313,18 +311,18 @@ def parse_pem(pemstr):
 			temp_dict['subjKeyIdExt'] = son_dict
 
 		
-	    if tbs.nameConstraintsExt:
+		if tbs.nameConstraintsExt:
 			nce = tbs.nameConstraintsExt.value
 			   # print "\tName constraints: is_critical:", tbs.nameConstraintsExt.is_critical
-
+			
 			subtreeFmt = lambda subtrees: ", ".join([str(x) for x in subtrees])
 			permit = ''
-	  		exc = ''
+			exc = ''
 			if nce.permittedSubtrees:
-			    permit = subtreeFmt(nce.permittedSubtrees)	
+				permit = subtreeFmt(nce.permittedSubtrees)	
 				#print "\t\tPermitted:", subtreeFmt(nce.permittedSubtrees)
 			if nce.excludedSubtrees:
-			    exc = subtreeFmt(nce.excludedSubtrees)
+				exc = subtreeFmt(nce.excludedSubtrees)
 				#print "\t\tExcluded:", subtreeFmt(nce.excludedSubtrees)
 			son_dict = {}
 			son_dict['is_critical'] = tbs.nameConstrainsExt.is_critical
@@ -334,7 +332,7 @@ def parse_pem(pemstr):
 	#signature
 	dict['signature'] = hexlify(x509cert.signature)
 	print dict
-   	return dict
+	return dict
 
 #Sample usage showing retrieving certificate fields
 if __name__ == "__main__":
